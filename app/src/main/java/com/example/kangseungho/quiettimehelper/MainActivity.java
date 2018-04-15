@@ -47,26 +47,6 @@ public class MainActivity extends AppCompatActivity {
                 JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask();
                 jsoupAsyncTask.execute();
                 cnt++;
-
-                /*
-                if(qtTitle != null) {
-                    try {
-                        htmlContentInStringFormat += "오늘의 말씀\n" + qtTitle + "\n\n";
-
-                        for (int i = 0; i < wordNum.length; i++) {
-                            htmlContentInStringFormat += words[i] + "\n";
-                        }
-
-                        htmlContentInStringFormat += "\n";
-
-                        for(int i=0; i<prayTitle.length; i++) {
-                            htmlContentInStringFormat += prayTitle[i] + " : " + praies[i] + "\n";
-                        }
-                    } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }
-                */
             }
         });
     }
