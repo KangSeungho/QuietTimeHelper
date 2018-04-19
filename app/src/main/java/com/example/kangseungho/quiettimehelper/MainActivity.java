@@ -15,15 +15,19 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String htmlPageUrl = "http://www.365qt.com/TodaysQT.asp?WD=0";
+    private String htmlPageUrl = "http://www.365qt.com/TodaysQT.asp";
     private TextView textViewHtmlDocument;
     private String htmlContentInStringFormat= "";
 
     private String qtTitle;
     private String wordNum[], words[];
+    private ArrayList<String> meditationTitle = new ArrayList<>();
+    private ArrayList<String> meditation = new ArrayList<>();
     private String prayTitle[], praies[];
     private String wordsTmp = "", prayTitleTmp = "", praiesTmp = "";
 
@@ -74,6 +78,12 @@ public class MainActivity extends AppCompatActivity {
                 // 성경 구절
                 wordsSelect(doc, "div.qtBox li");
 
+                // 내용 관찰 제목
+                meditationTitleSelect(doc, "span.box2Title");
+
+                // 내용 관찰
+                meditationSelect(doc, "p");
+
                 // 말씀나누기, 은혜나누기, 함께기도하기
                 elementSelect(doc, "div.bx2 div.box2Title", 0);
 
@@ -120,6 +130,47 @@ public class MainActivity extends AppCompatActivity {
             htmlContentInStringFormat += wordsTmp + "\n";
         }
 
+        private void meditationTitleSelect(Document doc, String cssQuery) {
+            Elements titles = doc.select(cssQuery);
+
+            for(Element e : titles) {
+                meditationTitle.add(e.text().trim());
+            }
+        }
+
+        private void meditationSelect(Document doc, String cssQuery) {
+            Elements titles = doc.select(cssQuery);
+            ArrayList<String> htmlStr = new ArrayList<>();
+            String selHtml ="";
+
+            for(Element e : titles) {
+                htmlStr.add(e.html());
+            }
+
+            for(String tmp : htmlStr) {
+                if(tmp.contains("box2Title")) {
+                    selHtml = tmp;
+                    break;
+                }
+            }
+
+            String splitTmp[] = selHtml.split("<br>");
+
+            for(String str : splitTmp) {
+                if(str.contains("?")) {
+                    meditation.add(str);
+                }
+            }
+
+            /*
+            for(String str : meditation) {
+                htmlContentInStringFormat += str + "\n";
+            }
+
+            htmlContentInStringFormat += "\n";
+            */
+        }
+
         private void elementSelect(Document doc, String cssQuery, int check) {
             Elements titles = doc.select(cssQuery);
 
@@ -151,6 +202,20 @@ public class MainActivity extends AppCompatActivity {
 
         private void textDivision() {
             //words = wordsTmp.split("\n");
+            for(int i=0, n=0; i<meditationTitle.size(); i++) {
+                htmlContentInStringFormat += meditationTitle.get(i) + "\n";
+
+                while(true) {
+                    htmlContentInStringFormat += meditation.get(i+n) + "\n";
+                    if( (i+n+1 < meditation.size()) && (meditation.get(i+n+1).contains("절") || !meditation.get(i+n+1).contains(".")))
+                        n++;
+                    else
+                        break;
+                }
+
+                htmlContentInStringFormat += "\n";
+            }
+
             prayTitle = prayTitleTmp.split("\n");
             praies = praiesTmp.split("\n");
 
