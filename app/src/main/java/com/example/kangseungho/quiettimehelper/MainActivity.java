@@ -15,8 +15,8 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,11 +25,15 @@ public class MainActivity extends AppCompatActivity {
     private String htmlContentInStringFormat= "";
 
     private String qtTitle;
-    private String wordNum[], words[];
-    private ArrayList<String> meditationTitle = new ArrayList<>();
-    private ArrayList<String> meditation = new ArrayList<>();
-    private String prayTitle[], praies[];
-    private String wordsTmp = "", prayTitleTmp = "", praiesTmp = "";
+    private LinkedList<String> wordNum = new LinkedList<>();
+    private LinkedList<String> words = new LinkedList<>();
+    private LinkedList<String> meditationTitle = new LinkedList<>();
+    private LinkedList<String> meditation = new LinkedList<>();
+    private LinkedList<String> guideTitle = new LinkedList<>();
+    private LinkedList<String> guides = new LinkedList<>();
+    private LinkedList<String> prayerTitle = new LinkedList<>();
+    private LinkedList<String> prayer = new LinkedList<>();
+    private String wordsTmp = "";
 
     int cnt=0;
 
@@ -90,17 +94,12 @@ public class MainActivity extends AppCompatActivity {
                 // 각 컨텐츠
                 elementSelect(doc, "div.bx2 div.box2Content", 1);
 
-                textDivision();
-                /*
-                // 테스트 1
-                elementSelect(doc, "div.news-con h1.tit-news");
+                // 골방, 중보, 열방
+                prayerSelect(doc, "div.box2 div.box2Content li");
 
-                // 테스트 2
-                elementSelect(doc, "div.news-con h2.tit-news");
 
-                // 테스트 3
-                elementSelect(doc, "li.section02 div.con h2.news-tl");
-                */
+                // 글자 셋팅
+                textSetting();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -140,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
         private void meditationSelect(Document doc, String cssQuery) {
             Elements titles = doc.select(cssQuery);
-            ArrayList<String> htmlStr = new ArrayList<>();
+            LinkedList<String> htmlStr = new LinkedList<>();
             String selHtml ="";
 
             for(Element e : titles) {
@@ -161,14 +160,6 @@ public class MainActivity extends AppCompatActivity {
                     meditation.add(str);
                 }
             }
-
-            /*
-            for(String str : meditation) {
-                htmlContentInStringFormat += str + "\n";
-            }
-
-            htmlContentInStringFormat += "\n";
-            */
         }
 
         private void elementSelect(Document doc, String cssQuery, int check) {
@@ -176,32 +167,24 @@ public class MainActivity extends AppCompatActivity {
 
             for(Element e : titles) {
                 if(check == 0)
-                    prayTitleTmp += e.text().trim() + "\n";
+                    guideTitle.add(e.text().trim());
                 else
-                    praiesTmp += e.text().trim() + "\n";
-                /*
-                if(count == 0) {
-                    prayTitleTmp += e.text().trim() + "\n";
-                    htmlContentInStringFormat += prayTitleTmp;
-                }
-                else {
-                    praiesTmp += e.text().trim() + "\n";
-                    htmlContentInStringFormat += praiesTmp;
-                }
-                */
+                    guides.add(e.text().trim());
             }
-
-            /*
-            if(check == 0)
-                htmlContentInStringFormat += prayTitleTmp;
-            else
-                htmlContentInStringFormat += praiesTmp;
-                */
-            //htmlContentInStringFormat += "\n";
         }
 
-        private void textDivision() {
-            //words = wordsTmp.split("\n");
+        private void prayerSelect(Document doc, String cssQuery) {
+            Elements titles = doc.select(cssQuery);
+
+            for(Element e : titles) {
+                String str[] = e.text().trim().split(":");
+
+                prayerTitle.add(str[0]);
+                prayer.add(str[1]);
+            }
+        }
+
+        private void textSetting() {
             for(int i=0, n=0; i<meditationTitle.size(); i++) {
                 htmlContentInStringFormat += meditationTitle.get(i) + "\n";
 
@@ -216,12 +199,17 @@ public class MainActivity extends AppCompatActivity {
                 htmlContentInStringFormat += "\n";
             }
 
-            prayTitle = prayTitleTmp.split("\n");
-            praies = praiesTmp.split("\n");
+            templateText(guideTitle, guides);
+            templateText(prayerTitle, prayer);
+        }
 
-            if(prayTitle.length == praies.length) {
-                for(int i=0; i<prayTitle.length; i++) {
-                    htmlContentInStringFormat += prayTitle[i] + "\n" + praies[i] + "\n\n";
+        private void templateText(LinkedList<String> title, LinkedList<String> words) {
+            if(title.size() == words.size()) {
+                Iterator<String> TitleIt = title.iterator();
+                Iterator<String> wordssIt = words.iterator();
+
+                while(TitleIt.hasNext() && wordssIt.hasNext()) {
+                    htmlContentInStringFormat += TitleIt.next() + "\n" + wordssIt.next() + "\n\n";
                 }
             }
         }
