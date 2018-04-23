@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewHtmlDocument;
     private String htmlContentInStringFormat= "";
 
-    private String qtTitle;
+    private String bible, chapter, passageStartNum, passageEndNum;
     private LinkedList<String> wordNum = new LinkedList<>();
     private LinkedList<String> words = new LinkedList<>();
     private LinkedList<String> meditationTitle = new LinkedList<>();
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 meditationTitleSelect(doc, "span.box2Title");
 
                 // 내용 관찰
-                meditationSelect(doc, "p");
+                meditationSelect(doc, "#content > p");
 
                 // 말씀나누기, 은혜나누기, 함께기도하기
                 elementSelect(doc, "div.bx2 div.box2Title", 0);
@@ -115,8 +115,18 @@ public class MainActivity extends AppCompatActivity {
                 int start = buffer.indexOf("(") + 1;
                 int end = buffer.indexOf(")");
 
-                qtTitle = buffer.substring(start, end);
-                htmlContentInStringFormat += qtTitle + "\n\n";
+                String qtTitle = buffer.substring(start, end);
+
+                bible = qtTitle.split("\\s+")[0];
+                String tmp = qtTitle.split("\\s+")[1];
+
+                chapter = tmp.split(":")[0];
+                String tmp2 = tmp.split(":")[1];
+
+                passageStartNum = tmp2.split("~")[0];
+                passageEndNum = tmp2.split("~")[1];
+
+                htmlContentInStringFormat += bible + " " + chapter + "장 " + passageStartNum + "~" + passageEndNum + "절\n\n";
             }
         }
 
@@ -139,26 +149,17 @@ public class MainActivity extends AppCompatActivity {
 
         private void meditationSelect(Document doc, String cssQuery) {
             Elements titles = doc.select(cssQuery);
-            LinkedList<String> htmlStr = new LinkedList<>();
-            String selHtml ="";
+            String htmlStr = "";
 
             for(Element e : titles) {
-                htmlStr.add(e.html());
+                if(e.ownText().trim().matches(".+"))
+                    htmlStr = e.ownText().trim();
             }
 
-            for(String tmp : htmlStr) {
-                if(tmp.contains("box2Title")) {
-                    selHtml = tmp;
-                    break;
-                }
-            }
+            String tmp[] = htmlStr.split("[0-9]\\.");
 
-            String splitTmp[] = selHtml.split("<br>");
-
-            for(String str : splitTmp) {
-                if(str.contains("?")) {
-                    meditation.add(str);
-                }
+            for(int i=1; i<tmp.length; i++) {
+                meditation.add(i + ". " + tmp[i]);
             }
         }
 
@@ -206,10 +207,10 @@ public class MainActivity extends AppCompatActivity {
         private void templateText(LinkedList<String> title, LinkedList<String> words) {
             if(title.size() == words.size()) {
                 Iterator<String> TitleIt = title.iterator();
-                Iterator<String> wordssIt = words.iterator();
+                Iterator<String> wordsIt = words.iterator();
 
-                while(TitleIt.hasNext() && wordssIt.hasNext()) {
-                    htmlContentInStringFormat += TitleIt.next() + "\n" + wordssIt.next() + "\n\n";
+                while(TitleIt.hasNext() && wordsIt.hasNext()) {
+                    htmlContentInStringFormat += TitleIt.next() + "\n" + wordsIt.next() + "\n\n";
                 }
             }
         }
