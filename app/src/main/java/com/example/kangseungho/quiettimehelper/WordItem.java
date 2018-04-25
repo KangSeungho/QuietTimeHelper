@@ -5,6 +5,8 @@ import java.util.LinkedList;
 public class WordItem {
     public static WordItem instance = new WordItem();
 
+    public boolean dataCheck = false;
+
     private String bible, chapter, passageStartNum, passageEndNum;
     private LinkedList<String> wordNum = new LinkedList<>();
     private LinkedList<String> words = new LinkedList<>();
@@ -14,6 +16,8 @@ public class WordItem {
     private LinkedList<String> guides = new LinkedList<>();
     private LinkedList<String> prayerTitle = new LinkedList<>();
     private LinkedList<String> prayer = new LinkedList<>();
+
+    public String test;
 
     public String getBible() {
         return bible;
