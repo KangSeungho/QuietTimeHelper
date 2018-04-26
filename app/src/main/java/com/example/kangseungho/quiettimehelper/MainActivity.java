@@ -1,40 +1,45 @@
 package com.example.kangseungho.quiettimehelper;
 
-import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.MenuItem;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.LinkedList;
+import com.example.kangseungho.quiettimehelper.Fragment.*;
 
 public class MainActivity extends AppCompatActivity {
 
     public static String htmlPageUrl = "http://www.365qt.com/TodaysQT.asp";
 
-    private TextView textViewHtmlDocument;
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_words:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.content, new WordsFragment()).commit();
+                    return true;
+                case R.id.navigation_pray:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.content, new PrayFragment()).commit();
+                    return true;
+                case R.id.navigation_setting:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.content, new SettingFragment()).commit();
+                    return true;
+            }
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textViewHtmlDocument = (TextView) findViewById(R.id.textView);
-        textViewHtmlDocument.setMovementMethod(new ScrollingMovementMethod());
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask(htmlPageUrl, textViewHtmlDocument);
-        jsoupAsyncTask.execute();
-
-        new AlarmHATT(getApplicationContext()).Alarm();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content, new WordsFragment()).commit();
     }
 }

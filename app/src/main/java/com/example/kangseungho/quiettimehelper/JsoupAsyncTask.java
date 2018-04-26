@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-class JsoupAsyncTask extends AsyncTask<Void, Void, Void> {
+public class JsoupAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private String htmlPageUrl;
     private TextView textView;
@@ -25,14 +25,16 @@ class JsoupAsyncTask extends AsyncTask<Void, Void, Void> {
     private LinkedList<String> guides = new LinkedList<>();
     private LinkedList<String> prayerTitle = new LinkedList<>();
     private LinkedList<String> prayer = new LinkedList<>();
+    private int check;
 
-    JsoupAsyncTask(String htmlPageUrl, TextView textView) {
+    public JsoupAsyncTask(String htmlPageUrl, TextView textView) {
         this.htmlPageUrl = htmlPageUrl;
         this.textView = textView;
     }
 
-    JsoupAsyncTask(String htmlPageUrl) {
+    public JsoupAsyncTask(String htmlPageUrl, int check) {
         this.htmlPageUrl = htmlPageUrl;
+        this.check = check;
         this.textView = null;
     }
 
@@ -48,6 +50,7 @@ class JsoupAsyncTask extends AsyncTask<Void, Void, Void> {
             textView.setText(htmlContentInStringFormat);
         }
 
+        WordItem.instance.test = htmlContentInStringFormat;
         WordItem.instance.dataCheck = true;
     }
 
@@ -59,7 +62,7 @@ class JsoupAsyncTask extends AsyncTask<Void, Void, Void> {
             // 오늘의 말씀
             todaySaySelect(doc, "#qtDayText2");
 
-            if(textView != null) {
+            if(check == 0) {
                 // 성경 구절
                 wordsSelect(doc, "div.qtBox li");
 

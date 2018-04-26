@@ -12,14 +12,14 @@ public class BroadcastD extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask(MainActivity.htmlPageUrl);
+        JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask(MainActivity.htmlPageUrl, 1);
         jsoupAsyncTask.execute();
 
         try {
             Thread.sleep(1000);
 
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(context, IntroActivity.class), PendingIntent.FLAG_CANCEL_CURRENT);
             Notification.Builder builder = new Notification.Builder(context);
             builder.setSmallIcon(R.drawable.ic_launcher_foreground).setTicker("TICKER").setWhen(System.currentTimeMillis())
                     .setNumber(1)
