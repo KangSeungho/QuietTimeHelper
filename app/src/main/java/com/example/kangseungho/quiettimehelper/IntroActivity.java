@@ -45,7 +45,7 @@ public class IntroActivity extends AppCompatActivity {
         JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask(htmlPageUrl, 0);
         jsoupAsyncTask.execute();
 
-        handler.postDelayed(r, 1000);
+        handler.postDelayed(r, 2000);
     }
 
     @Override

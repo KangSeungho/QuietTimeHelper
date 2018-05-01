@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QuietTimeHelper</string>
+    <string name="app_name">QT 시간</string>
     <string name="title_words">말씀</string>
     <string name="title_pray">기도</string>
     <string name="title_setting">설정</string>

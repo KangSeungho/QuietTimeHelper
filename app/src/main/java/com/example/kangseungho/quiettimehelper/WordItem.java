@@ -7,6 +7,8 @@ public class WordItem {
 
     public boolean dataCheck = false;
 
+    private String title, today;
+
     private String bible, chapter, passageStartNum, passageEndNum;
     private LinkedList<String> wordNum = new LinkedList<>();
     private LinkedList<String> words = new LinkedList<>();
@@ -18,6 +20,20 @@ public class WordItem {
     private LinkedList<String> prayer = new LinkedList<>();
 
     public String test;
+
+    public String getTitle() {
+        return title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getToday() {
+        return today;
+    }
+    public void setToday(String today) {
+        this.today = today;
+    }
 
     public String getBible() {
         return bible;

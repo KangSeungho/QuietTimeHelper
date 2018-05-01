@@ -16,15 +16,15 @@ public class BroadcastD extends BroadcastReceiver {
         jsoupAsyncTask.execute();
 
         try {
-            Thread.sleep(1000);
+            Thread.sleep(5000);
 
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(context, IntroActivity.class), PendingIntent.FLAG_CANCEL_CURRENT);
             Notification.Builder builder = new Notification.Builder(context);
             builder.setSmallIcon(R.drawable.ic_launcher_foreground).setTicker("TICKER").setWhen(System.currentTimeMillis())
                     .setNumber(1)
-                    .setContentTitle(WordItem.instance.getBible())
-                    .setContentText(WordItem.instance.getChapter() + "장 " + WordItem.instance.getPassageStartNum() + "~" + WordItem.instance.getPassageEndNum() + "절")
+                    .setContentTitle(WordItem.instance.getTitle())
+                    .setContentText(WordItem.instance.getToday())
                     .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE).setContentIntent(pendingIntent).setAutoCancel(true);
 
             notificationManager.notify(1, builder.build());

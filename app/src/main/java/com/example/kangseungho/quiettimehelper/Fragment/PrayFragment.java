@@ -14,7 +14,7 @@ public class PrayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         getActivity().setTitle("기도");
 
-        View view = inflater.inflate(R.layout.fragment_words, container, false);
+        View view = inflater.inflate(R.layout.fragment_pray, container, false);
 
         return view;
     }

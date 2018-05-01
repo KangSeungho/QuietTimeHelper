@@ -3,16 +3,16 @@
 
     <item
         android:id="@+id/navigation_words"
-        android:icon="@drawable/book"
+        android:icon="@drawable/ic_book"
         android:title="@string/title_words" />
 
     <item
         android:id="@+id/navigation_pray"
-        android:icon="@drawable/pray"
+        android:icon="@drawable/ic_pray"
         android:title="@string/title_pray" />
 
     <item
         android:id="@+id/navigation_setting"
-        android:icon="@drawable/setting"
+        android:icon="@drawable/ic_setting"
         android:title="@string/title_setting" />
 </menu>

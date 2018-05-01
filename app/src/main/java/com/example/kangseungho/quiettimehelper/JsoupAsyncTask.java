@@ -45,8 +45,9 @@ public class JsoupAsyncTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result) {
+        textSetting();
+
         if(textView != null) {
-            textSetting();
             textView.setText(htmlContentInStringFormat);
         }
 
@@ -59,10 +60,14 @@ public class JsoupAsyncTask extends AsyncTask<Void, Void, Void> {
         try {
             Document doc = Jsoup.connect(htmlPageUrl).get();
 
+            // 제목 가져오기
+            titleSelect(doc, "#qtDayText2 span.qtbigText2");
+
             // 오늘의 말씀
-            todaySaySelect(doc, "#qtDayText2");
+            todaySaySelect(doc, "#qtDayText2", check);
 
             if(check == 0) {
+
                 // 성경 구절
                 wordsSelect(doc, "div.qtBox li");
 
@@ -88,26 +93,41 @@ public class JsoupAsyncTask extends AsyncTask<Void, Void, Void> {
         return null;
     }
 
-    private void todaySaySelect(Document doc, String cssQuery) {
+    private void titleSelect(Document doc, String cssQuery) {
         Elements titles = doc.select(cssQuery);
 
-        for(Element e : titles) {
-            String buffer = e.html().trim();
+        WordItem.instance.setTitle(titles.text().trim());
+    }
+
+    private void todaySaySelect(Document doc, String cssQuery, int check) {
+        Elements titles = doc.select(cssQuery);
+
+        if(check == 0) {
+            for(Element e : titles) {
+                String buffer = e.html().trim();
+                int start = buffer.indexOf("(") + 1;
+                int end = buffer.indexOf(")");
+
+                String qtTitle = buffer.substring(start, end);
+
+                WordItem.instance.setBible(qtTitle.split("\\s+")[0]);
+                String tmp = qtTitle.split("\\s+")[1];
+
+                WordItem.instance.setChapter(tmp.split(":")[0]);
+                String tmp2 = tmp.split(":")[1];
+
+                WordItem.instance.setPassageStartNum(tmp2.split("~")[0]);
+                WordItem.instance.setPassageEndNum(tmp2.split("~")[1]);
+
+                htmlContentInStringFormat += WordItem.instance.getBible() + " " + WordItem.instance.getChapter() + "장 " + WordItem.instance.getPassageStartNum() + "~" + WordItem.instance.getPassageEndNum() + "절\n\n";
+            }
+        }
+        else if(check == 1) {
+            String buffer = titles.html().trim();
             int start = buffer.indexOf("(") + 1;
             int end = buffer.indexOf(")");
 
-            String qtTitle = buffer.substring(start, end);
-
-            WordItem.instance.setBible(qtTitle.split("\\s+")[0]);
-            String tmp = qtTitle.split("\\s+")[1];
-
-            WordItem.instance.setChapter(tmp.split(":")[0]);
-            String tmp2 = tmp.split(":")[1];
-
-            WordItem.instance.setPassageStartNum(tmp2.split("~")[0]);
-            WordItem.instance.setPassageEndNum(tmp2.split("~")[1]);
-
-            htmlContentInStringFormat += WordItem.instance.getBible() + " " + WordItem.instance.getChapter() + "장 " + WordItem.instance.getPassageStartNum() + "~" + WordItem.instance.getPassageEndNum() + "절\n\n";
+            WordItem.instance.setToday(buffer.substring(start, end));
         }
     }
 
