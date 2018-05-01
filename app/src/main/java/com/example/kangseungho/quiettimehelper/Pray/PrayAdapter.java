@@ -12,18 +12,19 @@ import com.example.kangseungho.quiettimehelper.WordItem;
 
 import java.util.LinkedList;
 
-public class PraiesAdapter extends BaseAdapter {
-    LinkedList<String> praiesItem;
+public class PrayAdapter extends BaseAdapter {
+    LinkedList<String> prayTitle;
+    LinkedList<String> pray;
     ViewHolder viewHolder;
 
     @Override
     public int getCount() {
-        return praiesItem.size();
+        return prayTitle.size();
     }
 
     @Override
     public String getItem(int i) {
-        return praiesItem.get(i);
+        return prayTitle.get(i);
     }
 
     @Override
@@ -41,8 +42,8 @@ public class PraiesAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.praies_list_item, parent, false);
 
             viewHolder = new ViewHolder();
-            //viewHolder.prayTitle = (TextView) convertView.findViewById(R.id.wordNumber_tv);
-            //viewHolder.pray = (TextView) convertView.findViewById(R.id.word_tv);
+            viewHolder.prayTitle = (TextView) convertView.findViewById(R.id.pray_title_tv);
+            viewHolder.pray = (TextView) convertView.findViewById(R.id.pray_tv);
 
             convertView.setTag(viewHolder);
         }
@@ -50,17 +51,18 @@ public class PraiesAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        String wordItem = getItem(position);
-        int number = Integer.parseInt(WordItem.instance.getPassageStartNum()) + position;
+        String strPrayTitle = prayTitle.get(position);
+        String strPray = pray.get(position);
 
-        //viewHolder.prayTitle.setText(number + " ");
-        //viewHolder.pray.setText(wordItem);
+        viewHolder.prayTitle.setText(strPrayTitle);
+        viewHolder.pray.setText(strPray);
 
         return convertView;
     }
 
-    public void addItem(LinkedList<String> wordsItem) {
-        this.praiesItem = wordsItem;
+    public void addItem(LinkedList<String> prayTitle, LinkedList<String> pray) {
+        this.prayTitle = prayTitle;
+        this.pray = pray;
     }
 
     class ViewHolder {

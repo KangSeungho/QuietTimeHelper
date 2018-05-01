@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:text="2018.05.01"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <ImageView
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="사명을 감당하기 위한 조건"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:textStyle="bold"
         android:textAlignment="center" />
 
@@ -59,9 +59,10 @@
         android:layout_marginBottom="5dp"/>
 
     <ListView
-        android:id="@+id/prays_list"
+        android:id="@+id/pray_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="#3fff"/>
+        android:divider="#3fff"
+        android:padding="8dp"/>
 
 </LinearLayout>

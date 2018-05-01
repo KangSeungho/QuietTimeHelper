@@ -5,8 +5,26 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:layout_marginBottom="5dp">
 
+        <TextView
+            android:id="@+id/pray_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="내용 관찰"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="3dp"/>
+
+        <TextView
+            android:id="@+id/pray_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1. 제자들이 각 마을에 두루 다니며 한 일은 무엇입니까?(6절)"
+            android:textSize="16sp"/>
     </LinearLayout>
 
 </LinearLayout>

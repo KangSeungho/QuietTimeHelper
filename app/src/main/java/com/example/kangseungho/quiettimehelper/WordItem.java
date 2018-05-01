@@ -11,6 +11,9 @@ public class WordItem {
 
     private String bible, chapter, passageStartNum, passageEndNum;
     private LinkedList<String> words = new LinkedList<>();
+    private LinkedList<String> prayTitle = new LinkedList<>();
+    private LinkedList<String> pray = new LinkedList<>();
+
     private LinkedList<String> meditationTitle = new LinkedList<>();
     private LinkedList<String> meditation = new LinkedList<>();
     private LinkedList<String> guideTitle = new LinkedList<>();
@@ -66,6 +69,22 @@ public class WordItem {
     public void setWords(LinkedList<String> words) {
         this.words = words;
     }
+
+    public LinkedList<String> getPrayTitle() {
+        return prayTitle;
+    }
+    public void setPrayTitle(LinkedList<String> prayTitle) {
+        this.prayTitle = prayTitle;
+    }
+
+    public LinkedList<String> getPray() {
+        return pray;
+    }
+    public void setPray(LinkedList<String> pray) {
+        this.pray = pray;
+    }
+
+
 
     public LinkedList<String> getMeditationTitle() {
         return meditationTitle;

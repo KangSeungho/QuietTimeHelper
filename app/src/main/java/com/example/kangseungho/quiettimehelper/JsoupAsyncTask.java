@@ -17,6 +17,10 @@ public class JsoupAsyncTask extends AsyncTask<Void, Void, Void> {
     private String htmlPageUrl;
 
     private LinkedList<String> words = new LinkedList<>();
+    private LinkedList<String> prayTitle = new LinkedList<>();
+    private LinkedList<String> pray = new LinkedList<>();
+
+
     private LinkedList<String> meditationTitle = new LinkedList<>();
     private LinkedList<String> meditation = new LinkedList<>();
     private LinkedList<String> guideTitle = new LinkedList<>();
@@ -147,6 +151,9 @@ public class JsoupAsyncTask extends AsyncTask<Void, Void, Void> {
         String tmp[] = htmlStr.split("[0-9]\\.");
 
         for(int i=1; i<tmp.length; i++) {
+            if(i==5) {
+                tmp[i] = tmp[i].replace("? ", "?\n");
+            }
             meditation.add(i + ". " + tmp[i]);
         }
     }
@@ -174,6 +181,8 @@ public class JsoupAsyncTask extends AsyncTask<Void, Void, Void> {
     }
 
     private void textSetting() {
+        String tmp="";
+
         WordItem.instance.setWords(words);
         WordItem.instance.setMeditationTitle(meditationTitle);
         WordItem.instance.setMeditation(meditation);
@@ -182,39 +191,43 @@ public class JsoupAsyncTask extends AsyncTask<Void, Void, Void> {
         WordItem.instance.setPrayerTitle(prayerTitle);
         WordItem.instance.setPrayer(prayer);
 
-        /*
         for(int i=0, n=0; i<meditationTitle.size(); i++) {
-            htmlContentInStringFormat += meditationTitle.get(i) + "\n";
+            prayTitle.add(meditationTitle.get(i));
 
             while(true) {
-                htmlContentInStringFormat += meditation.get(i+n) + "\n";
-                if( (i+n+1 < meditation.size()) && (meditation.get(i+n+1).contains("절") || !meditation.get(i+n+1).contains(".")))
+                tmp += meditation.get(i+n);
+                if( (i+n+1 < meditation.size()) && (meditation.get(i+n+1).contains("절") || !meditation.get(i+n+1).contains("."))) {
+                    tmp += "\n";
                     n++;
-                else
+                }
+                else {
+                    pray.add(tmp);
+                    tmp = "";
                     break;
+                }
             }
-
-            htmlContentInStringFormat += "\n";
         }
-
 
         templateText(guideTitle, guides);
         templateText(prayerTitle, prayer);
-        */
+
+        WordItem.instance.setPrayTitle(prayTitle);
+        WordItem.instance.setPray(pray);
     }
 
-    /*
     private void templateText(LinkedList<String> title, LinkedList<String> words) {
         if(title.size() == words.size()) {
             Iterator<String> TitleIt = title.iterator();
             Iterator<String> wordsIt = words.iterator();
 
             while(TitleIt.hasNext() && wordsIt.hasNext()) {
-                htmlContentInStringFormat += TitleIt.next() + "\n" + wordsIt.next() + "\n\n";
+                prayTitle.add(TitleIt.next());
+                pray.add(wordsIt.next());
             }
         }
     }
 
+    /*
     public String getText() {
         return htmlContentInStringFormat;
     }
