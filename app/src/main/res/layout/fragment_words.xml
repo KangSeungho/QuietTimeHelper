@@ -17,7 +17,7 @@
             >
 
             <TextView
-                android:id="@+id/textView_SearchLocation"
+                android:id="@+id/words_today_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
@@ -26,7 +26,7 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/dropdown_mark"
+                android:id="@+id/words_today_mark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/ic_arrow_drop_down_circle_black_24dp" />
@@ -35,7 +35,7 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/words_title"
+        android:id="@+id/words_title_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="사명을 감당하기 위한 조건"
@@ -43,16 +43,25 @@
         android:textStyle="bold"
         android:textAlignment="center" />
 
+    <TextView
+        android:id="@+id/words_bible_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="(누가복음 9장 1~9절)"
+        android:textSize="12sp"
+        android:textAlignment="center" />
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#000000"
+        android:background="#dddddd"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"/>
 
     <ListView
         android:id="@+id/words_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:divider="#3fff"/>
 
 </LinearLayout>

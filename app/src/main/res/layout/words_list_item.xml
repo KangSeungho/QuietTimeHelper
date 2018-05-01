@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/wordNumber_tv"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:text="13"
+            android:gravity="end"
+            android:textSize="13sp"
+            android:textColor="#000000"
+            android:textStyle="italic"/>
+
+        <TextView
+            android:id="@+id/word_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="형제들아 너희가 자유를 위하여 부르심을 입었으나 그러나 그 자유로 육체의 기회를 삼지 말고 오직 사랑으로 서로 종 노릇 하라"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+</LinearLayout>

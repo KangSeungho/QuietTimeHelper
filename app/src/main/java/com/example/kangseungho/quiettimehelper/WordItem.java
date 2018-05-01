@@ -10,7 +10,6 @@ public class WordItem {
     private String title, today;
 
     private String bible, chapter, passageStartNum, passageEndNum;
-    private LinkedList<String> wordNum = new LinkedList<>();
     private LinkedList<String> words = new LinkedList<>();
     private LinkedList<String> meditationTitle = new LinkedList<>();
     private LinkedList<String> meditation = new LinkedList<>();
@@ -18,8 +17,6 @@ public class WordItem {
     private LinkedList<String> guides = new LinkedList<>();
     private LinkedList<String> prayerTitle = new LinkedList<>();
     private LinkedList<String> prayer = new LinkedList<>();
-
-    public String test;
 
     public String getTitle() {
         return title;
@@ -61,13 +58,6 @@ public class WordItem {
     }
     public void setPassageEndNum(String passageEndNum) {
         this.passageEndNum = passageEndNum;
-    }
-
-    public LinkedList<String> getWordNum() {
-        return wordNum;
-    }
-    public void setWordNum(LinkedList<String> wordNum) {
-        this.wordNum = wordNum;
     }
 
     public LinkedList<String> getWords() {
