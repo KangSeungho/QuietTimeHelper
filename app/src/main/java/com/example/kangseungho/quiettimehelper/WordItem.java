@@ -7,19 +7,19 @@ public class WordItem {
 
     public boolean dataCheck = false;
 
-    private String title, today;
+    private String date, title, today;
 
     private String bible, chapter, passageStartNum, passageEndNum;
     private LinkedList<String> words = new LinkedList<>();
     private LinkedList<String> prayTitle = new LinkedList<>();
     private LinkedList<String> pray = new LinkedList<>();
 
-    private LinkedList<String> meditationTitle = new LinkedList<>();
-    private LinkedList<String> meditation = new LinkedList<>();
-    private LinkedList<String> guideTitle = new LinkedList<>();
-    private LinkedList<String> guides = new LinkedList<>();
-    private LinkedList<String> prayerTitle = new LinkedList<>();
-    private LinkedList<String> prayer = new LinkedList<>();
+    public String getDate() {
+        return date;
+    }
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getTitle() {
         return title;
@@ -82,49 +82,5 @@ public class WordItem {
     }
     public void setPray(LinkedList<String> pray) {
         this.pray = pray;
-    }
-
-
-
-    public LinkedList<String> getMeditationTitle() {
-        return meditationTitle;
-    }
-    public void setMeditationTitle(LinkedList<String> meditationTitle) {
-        this.meditationTitle = meditationTitle;
-    }
-
-    public LinkedList<String> getMeditation() {
-        return meditation;
-    }
-    public void setMeditation(LinkedList<String> meditation) {
-        this.meditation = meditation;
-    }
-
-    public LinkedList<String> getGuideTitle() {
-        return guideTitle;
-    }
-    public void setGuideTitle(LinkedList<String> guideTitle) {
-        this.guideTitle = guideTitle;
-    }
-
-    public LinkedList<String> getGuides() {
-        return guides;
-    }
-    public void setGuides(LinkedList<String> guides) {
-        this.guides = guides;
-    }
-
-    public LinkedList<String> getPrayerTitle() {
-        return prayerTitle;
-    }
-    public void setPrayerTitle(LinkedList<String> prayerTitle) {
-        this.prayerTitle = prayerTitle;
-    }
-
-    public LinkedList<String> getPrayer() {
-        return prayer;
-    }
-    public void setPrayer(LinkedList<String> prayer) {
-        this.prayer = prayer;
     }
 }

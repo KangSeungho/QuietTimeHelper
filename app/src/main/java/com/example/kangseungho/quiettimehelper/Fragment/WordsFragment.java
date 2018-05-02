@@ -31,6 +31,7 @@ public class WordsFragment extends Fragment{
         bible = (TextView) view.findViewById(R.id.words_bible_tv);
         wordsList = (ListView) view.findViewById(R.id.words_list);
 
+        today.setText(WordItem.instance.getDate());
         title.setText(WordItem.instance.getTitle());
         bible.setText(
                 "(" + WordItem.instance.getBible() + " " + WordItem.instance.getChapter() + "장 " + WordItem.instance.getPassageStartNum() + "~" + WordItem.instance.getPassageEndNum() + "절)"

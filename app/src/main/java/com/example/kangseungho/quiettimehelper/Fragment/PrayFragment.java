@@ -29,6 +29,7 @@ public class PrayFragment extends Fragment {
         bible = (TextView) view.findViewById(R.id.words_bible_tv);
         prayList = (ListView) view.findViewById(R.id.pray_list);
 
+        today.setText(WordItem.instance.getDate());
         title.setText(WordItem.instance.getTitle());
         bible.setText(
                 "(" + WordItem.instance.getBible() + " " + WordItem.instance.getChapter() + "장 " + WordItem.instance.getPassageStartNum() + "~" + WordItem.instance.getPassageEndNum() + "절)"
